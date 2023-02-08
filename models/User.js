@@ -20,6 +20,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    //image will most likely be stored as a binary
+    // image: {
+    //   type: DataTypes.BLOB("long"),
+    // },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,12 +32,33 @@ User.init(
         isEmail: true,
       },
     },
+
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: [8],
       },
+    },
+    instagram_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    twitter_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    facebook_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    youtube_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    tiktok_url: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
