@@ -6,7 +6,7 @@ class Page extends Model {}
 Page.init(
   {
     id: {
-      type: Datatypes.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoincrement: true,
     },
