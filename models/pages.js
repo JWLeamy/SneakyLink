@@ -11,17 +11,18 @@ Page.init(
             primaryKey: true,
             autoIncrement: true,
         },
+        
+        user_id: {
+            type: DataTypes.STRING,
+            references: {
+                model: 'User',
+                key: 'username',
+            },
+        },
+
         url_1: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-
-        user_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'User',
-                key: 'id',
-            },
         },
 
         // url_2: {
