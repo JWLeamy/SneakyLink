@@ -50,14 +50,12 @@ router.post('/logout', (req, res) => {
 });
 
 
-
 router.post('/register', async (req, res) => {
-    console.log('this is the register route' + req.body.name);
     const { name, email, password } = req.body;
     console.log(name, email, password);
     try {
         const newUser = await User.create({
-            name: req.body.name,
+            username: req.body.name,
             email: req.body.email,
             password: req.body.password,
         });
@@ -65,7 +63,7 @@ router.post('/register', async (req, res) => {
         req.session.save(() => {
             req.session.user_id = newUser.id;
             req.session.logged_in = true;
-            res.json({ message: 'You are now registered !' });
+            return res.status(200).json({ user: newUser });
         });
     } catch (err) {
         res.status(400).json({ err });
@@ -73,6 +71,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/register', async (req, res) => {
+    //this was just for testing
     //going to change this to /:id param at some point
     try {
         const real = await User.findAll();

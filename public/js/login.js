@@ -36,6 +36,7 @@ const loginFormHandler = async (event) => {
       $(".btn-close").on("click", function () {
         $(".alert").alert("close");
       });
+
     }
   } else {
     $("#alert")
@@ -50,5 +51,5 @@ const loginFormHandler = async (event) => {
   };
 };
 
-$('#login').on('click', loginFormHandler);
 
+$('#login').on('click', loginFormHandler);
