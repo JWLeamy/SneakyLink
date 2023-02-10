@@ -17,10 +17,10 @@ Link.init(
     },
 
     username: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       references: {
         model: "User",
-        key: "id",
+        key: "username",
       },
     },
   },
