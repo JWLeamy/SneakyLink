@@ -16,7 +16,7 @@ Link.init(
       allowNull: true,
     },
 
-    user_id: {
+    username: {
       type: DataTypes.INTEGER,
       references: {
         model: "User",
