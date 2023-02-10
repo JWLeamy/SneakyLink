@@ -17,15 +17,15 @@ Page.init(
             references: {
                 model: 'User',
                 key: 'username',
+            },
         },
     },
-
-  {
-    sequelize,
-    freezeTableName: true,
-    timestamps: false,
-    modelName: "Pages",
-  }
+    {
+        sequelize,
+        freezeTableName: true,
+        timestamps: false,
+        modelName: "Pages",
+    }
 );
 
 module.exports = Page;
