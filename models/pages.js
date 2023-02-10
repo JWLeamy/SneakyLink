@@ -4,6 +4,7 @@ const sequelize = require('../config/connection');
 class Page extends Model {}
 
 Page.init(
+
     {
         id: {
             type: DataTypes.INTEGER,
@@ -47,6 +48,7 @@ Page.init(
         //     type: DataTypes.STRING,
         //     allowNull: false,
         // },
+
     },
 
     {
