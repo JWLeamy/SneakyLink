@@ -1,10 +1,13 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// FYI routes on this page will be preceeded by '/api/users'. This is helpful to know when designing our helpers in public JS folder, so that we can make the fetch calls to the right place.
+
+// route for handling the login click (we will run a script at the bottom of the login page using a public JS helper, which on click of the login button will perform a post fetch that passes the users email and password in the body)
 router.post('/login', async (req, res) => {
   try {
     // Find the user who matches the posted e-mail address
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({ where: { username: req.body.username } });
 
     if (!userData) {
       res
@@ -35,6 +38,10 @@ router.post('/login', async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+
+
+
 
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
