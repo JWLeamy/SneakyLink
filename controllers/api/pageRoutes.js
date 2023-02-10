@@ -1,6 +1,6 @@
 //route to create pages
 const router = require('express').Router();
-const Page = require('../../models/Page');
+const Page = require('../../models/Pages');
 const User = require('../../models/User');
 
 router.get('/', (req, res) => {});

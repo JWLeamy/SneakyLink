@@ -1,15 +1,19 @@
-const User = require('./User');
-
-const Page = require('./Pages');
+const User = require("./User");
+const Link = require("./links");
+const Page = require("./Pages");
 
 User.hasMany(Page, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE',
+  foreignKey: "username",
+  onDelete: "CASCADE",
 });
 
 Page.belongsTo(User, {
-    foreignKey: 'user_id',
-    // onDelete: 'CASCADE',
+  foreignKey: "username",
+  // onDelete: 'CASCADE',
 });
 
-module.exports = { User, Page };
+Page.hasMany(Link, {
+  foreignKey: "username",
+});
+
+module.exports = { User, Page, Link };
