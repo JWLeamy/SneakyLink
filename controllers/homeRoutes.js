@@ -45,12 +45,14 @@ router.get('/register', withAuth, (req, res) => {
         res.status(500).json(err);
     }
 });
+
 router.post('/register', withAuth, (req, res) => {
     try {
         res.render('homepage');
     } catch (err) {
         res.status(500).json(err);
     }
+});
 
 router.get("/logout", (req, res) => {
   try {
