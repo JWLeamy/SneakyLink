@@ -17,6 +17,7 @@ const hbs = exphbs.create({ helpers });
 
 // Configure and link a session object with the sequelize store
 const sess = {
+
   secret: "Super secret secret",
   cookie: {},
   resave: false,
@@ -24,6 +25,7 @@ const sess = {
   store: new SequelizeStore({
     db: sequelize,
   }),
+
 };
 
 // Add express-session and store as Express.js middleware
