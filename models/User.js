@@ -10,15 +10,16 @@ class User extends Model {
 
 User.init(
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        name: {
+        // id: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        //     primaryKey: true,
+        //     autoIncrement: true,
+        // },
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true,
         },
         //image will most likely be stored as a binary
         // image: {

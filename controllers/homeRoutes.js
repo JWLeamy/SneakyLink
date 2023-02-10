@@ -8,7 +8,7 @@ const withAuth = require('../utils/auth');
 // ON PAGE LOAD ROUTE: I think we want to check if the user is logged in, then send them to the profile page, otherwise, render the landing page.
 router.get('/', withAuth, async (req, res) => {
     try {
-        res.render('landingPage')
+        res.render('landingPage');
     } catch (err) {
         res.status(500).json(err);
     }
@@ -18,23 +18,35 @@ router.get('/', withAuth, async (req, res) => {
 // I added withAuth so that If the user somehow tries to go to the login page while being logged in, this should be a catch which would re-direct them to the profile page
 router.get('/login', withAuth, (req, res) => {
     try {
-        res.render('userLogin')
+        res.render('userLogin');
     } catch (err) {
         res.status(500).json(err);
     }
 });
-
+// route for logging in a user
+router.post('/login', withAuth, (req, res) => {
+    try {
+        res.render('homepage');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 // route for when the user clicks the register button from the landing page
 // again, adding the withAuth so that if the user is already logged in, they cannot access the sign up page.
 router.get('/register', withAuth, (req, res) => {
     try {
-        res.render('userRegistration')
+        res.render('userRegistration');
     } catch (err) {
         res.status(500).json(err);
     }
 });
-
-
+router.post('/register', withAuth, (req, res) => {
+    try {
+        res.render('homepage');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 // I COPIED THE ORIGINAL GET route for '/' BELOW, IN CASE WE WANT TO USE THINGS FROM IT LATER.
 
@@ -56,8 +68,5 @@ router.get('/register', withAuth, (req, res) => {
 //         res.status(500).json(err);
 //     }
 // });
-
-
-
 
 module.exports = router;

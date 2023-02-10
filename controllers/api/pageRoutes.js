@@ -1,9 +1,16 @@
 //route to create pages
 const router = require('express').Router();
-const Page = require('../../models/Page');
+const Page = require('../../models/Pages');
 const User = require('../../models/User');
 
-router.get('/', (req, res) => {});
+router.get('/', async (req, res) => {
+    try {
+        const allPages = await Page.findAll();
+        res.status(200).json(allPages);
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 router.post('/', async (req, res) => {
     try {

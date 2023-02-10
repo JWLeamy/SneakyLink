@@ -1,59 +1,34 @@
-//wasnt sure what to keep here
-//js for handling registration
+// wasnt sure what to keep here
+// js for handling registration
 
+let userEmail = $('#email');
+let userPass = $('#password');
+let userName = $('#username');
 
-let userEmail = 'test@test.com';
-let userPass = 'test';
-let userName = 'test';
+$('#submit').click((event) => {
+    event.preventDefault();
+    console.log('submit clicked');
+    const newUser = {
+        email: userEmail.val(),
+        password: userPass.val(),
+        name: userName.val(),
+    };
+    console.log(newUser);
+    storeNewUser(newUser);
+});
 
-const storeNewUser = (userInfo) => {
+const storeNewUser = async (userInfo) => {
     console.log('register fetch');
-    fetch('/api/users/register', {
+    const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
         },
         body: JSON.stringify(userInfo),
     });
-};
-
-const registerUser = () => {
-    const newUser = {
-        // email: userEmail.value,
-        // password: userPass.value,
-        // name: userName.value,
-        email: userEmail,
-        password: userPass,
-        name: userName,
-    };
-    storeNewUser(newUser).then(() => console.log('new user stored'));
-};
-/////////////////////////////////////////////////////////
-const loginFormHandler = async (event) => {
-  // Stop the browser from submitting the form so we can do so with JavaScript
-  event.preventDefault();
-
-  // Gather the data from the form elements on the page
-  const email = document.querySelector('#email-login').value.trim();
-  const password = document.querySelector('#password-login').value.trim();
-
-  if (email && password) {
-    // Send the e-mail and password to the server
-    const response = await fetch('/api/users/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
     if (response.ok) {
-      document.location.replace('/');
+        document.location.replace('/');
     } else {
-      alert('Failed to log in');
+        alert('error creating user profile');
     }
-  }
 };
-
-document
-  .querySelector('.login-form')
-  .addEventListener('submit', loginFormHandler);
-

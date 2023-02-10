@@ -4,7 +4,6 @@ const sequelize = require('../config/connection');
 class Page extends Model {}
 
 Page.init(
-
     {
         id: {
             type: DataTypes.INTEGER,
@@ -16,11 +15,11 @@ Page.init(
             allowNull: false,
         },
 
-        user_id: {
-            type: DataTypes.INTEGER,
+        username: {
+            type: DataTypes.STRING,
             references: {
                 model: 'User',
-                key: 'id',
+                key: 'username',
             },
         },
 
@@ -48,7 +47,6 @@ Page.init(
         //     type: DataTypes.STRING,
         //     allowNull: false,
         // },
-
     },
 
     {
