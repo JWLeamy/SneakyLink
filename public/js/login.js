@@ -1,6 +1,7 @@
 const loginFormHandler = async (event) => {
-  // Stop the browser from submitting the form so we can do so with JavaScript
-  event.preventDefault();
+    // Stop the browser from submitting the form so we can do so with JavaScript
+    event.preventDefault();
+
 
   // Gather the data from the form elements on the page
   const username = $('#username').val().trim();
@@ -25,10 +26,12 @@ const loginFormHandler = async (event) => {
       document.location.replace('/');
     } else {
       alert('Failed to log in');
+
     }
-  }
 };
 
 document
+
   .querySelector('#login')
   .addEventListener('submit', loginFormHandler);
+
