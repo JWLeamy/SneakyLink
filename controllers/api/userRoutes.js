@@ -19,9 +19,7 @@ router.post('/login', async (req, res) => {
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
-        res.status(400).json({
-            message: 'Incorrect username or password',
-        });
+        res.status(400).json({ message: 'Incorrect username or password' });
         return;
     }
 
@@ -66,9 +64,10 @@ router.post('/register', async (req, res) => {
             return res.status(200).json({ user: newUser });
         });
     } catch (err) {
-        res.status(400).json({ err });
+        res.status(400).json({ message: 'Invalid Email or Password!' });
     }
 });
+
 
 router.get('/register', async (req, res) => {
     //this was just for testing
@@ -82,7 +81,7 @@ router.get('/register', async (req, res) => {
             res.status(200).json(real);
         }
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Logged In!'});
     }
 });
 
