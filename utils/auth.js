@@ -4,7 +4,7 @@ const withAuth = (req, res, next) => {
     next();
   } else {
     // Send the user to the user profile if they are logged in!
-    res.redirect('');
+    res.redirect('/homepage');
   }
 };
 

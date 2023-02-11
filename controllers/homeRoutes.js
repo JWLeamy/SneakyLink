@@ -7,13 +7,12 @@ const withAuth = require("../utils/auth");
 
 // ON PAGE LOAD ROUTE: I think we want to check if the user is logged in, then send them to the profile page, otherwise, render the landing page.
 
-router.get("/", withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     res.render("landingPage");
   } catch (err) {
     res.status(500).json(err);
   }
-
 });
 
 // route for when the user clicks the login button from the landing page
@@ -27,17 +26,16 @@ router.get('/login', withAuth, (req, res) => {
     }
 });
 // route for logging in a user
-router.post('/login', withAuth, (req, res) => {
-    try {
-        res.render('homepage');
-    } catch (err) {
-        res.status(500).json(err);
-    }
+// router.post('/login', withAuth, (req, res) => {
+//     try {
+//         res.render('homepage');
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
 
-});
+// });
 // route for when the user clicks the register button from the landing page
 // again, adding the withAuth so that if the user is already logged in, they cannot access the sign up page.
-
 router.get('/register', withAuth, (req, res) => {
     try {
         res.render('userRegistration');
@@ -46,22 +44,29 @@ router.get('/register', withAuth, (req, res) => {
     }
 });
 
-router.post('/register', withAuth, (req, res) => {
-    try {
-        res.render('homepage');
-    } catch (err) {
-        res.status(500).json(err);
-    }
+router.get('/homepage', (req, res) => {
+  try {
+    res.render('homepage');
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
+
+// router.post('/register', withAuth, (req, res) => {
+//     try {
+//         res.render('homepage');
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
 
 router.get("/logout", (req, res) => {
   try {
-    res.render("logout", { layout: "main" });
+    res.render("logout");
   } catch (err) {
     console.log(err);
     res.status(404);
   }
-
 });
 
 // I COPIED THE ORIGINAL GET route for '/' BELOW, IN CASE WE WANT TO USE THINGS FROM IT LATER.
