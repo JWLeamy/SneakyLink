@@ -10,20 +10,14 @@ class User extends Model {
 
 User.init(
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
-        name: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
+            primaryKey: true,
+
+            unique: true
         },
-        //image will most likely be stored as a binary
-        // image: {
-        //   type: DataTypes.BLOB("long"),
-        // },
+        
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -40,6 +34,13 @@ User.init(
                 len: [8],
             },
         },
+
+        //image will most likely be stored as a binary
+        // image: {
+        //   type: DataTypes.BLOB("long"),
+        // },
+
+        
         instagram_url: {
             type: DataTypes.STRING,
             allowNull: true,

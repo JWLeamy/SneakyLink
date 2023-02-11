@@ -7,47 +7,35 @@ const User = require('../../models/User');
 router.post('/login', async (req, res) => {
 
   try {
-    // Find the user who matches the posted e-mail address
+    // Find the user who matches the requested username
     const userData = await User.findOne({ where: { username: req.body.username } });
 
     if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
+      res.status(400).json({ message: 'Incorrect username or password' });
       return;
     }
 
-        if (!userData) {
-            res.status(400).json({
-                message: 'Incorrect email or password, please try again',
-            });
-            return;
-        }
+    // Verify the posted password with the password store in the database
+    const validPassword = await userData.checkPassword(req.body.password);
 
-        // Verify the posted password with the password store in the database
-        const validPassword = await userData.checkPassword(req.body.password);
-
-        if (!validPassword) {
-            res.status(400).json({
-                message: 'Incorrect email or password, please try again',
-            });
-            return;
-        }
-
-        // Create session variables based on the logged in user
-        req.session.save(() => {
-            req.session.user_id = userData.id;
-            req.session.logged_in = true;
-
-            res.json({ user: userData, message: 'You are now logged in!' });
+    if (!validPassword) {
+        res.status(400).json({
+            message: 'Incorrect username or password',
         });
+        return;
+    }
+
+    // Create session variables based on the logged in user
+    req.session.save(() => {
+        req.session.user_id = userData.username;
+        req.session.logged_in = true;
+
+        res.json({ user: userData, message: 'Logged In!' });
+    });
     } catch (err) {
         res.status(400).json(err);
     }
 });
-
-
-
 
 
 router.post('/logout', (req, res) => {
@@ -61,29 +49,29 @@ router.post('/logout', (req, res) => {
     }
 });
 
+
 router.post('/register', async (req, res) => {
-    console.log('this is the register route' + req.body.name);
     const { name, email, password } = req.body;
     console.log(name, email, password);
     try {
         const newUser = await User.create({
-            name: req.body.name,
+            username: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            // socials: [req.body.socials],
         });
 
         req.session.save(() => {
             req.session.user_id = newUser.id;
             req.session.logged_in = true;
-            res.json({ message: 'You are now registered !' });
+            return res.status(200).json({ user: newUser });
         });
     } catch (err) {
-        res.status(400).json({ message: 'couldnt register user' });
+        res.status(400).json({ err });
     }
 });
 
 router.get('/register', async (req, res) => {
+    //this was just for testing
     //going to change this to /:id param at some point
     try {
         const real = await User.findAll();
