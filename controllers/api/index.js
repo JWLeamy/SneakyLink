@@ -5,6 +5,6 @@ const linkRoutes = require('./linkRoutes');
 
 router.use('/users', userRoutes);
 router.use('/pages', pageRoutes);
-router.user('/links', linkRoutes);
+router.use('/links', linkRoutes);
 
 module.exports = router;
