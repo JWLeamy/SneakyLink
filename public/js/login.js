@@ -35,3 +35,4 @@ document
   .querySelector('#login')
   .addEventListener('submit', loginFormHandler);
 
+};

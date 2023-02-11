@@ -1,32 +1,29 @@
 //wasnt sure what to keep here
 //js for handling registration
 
-
-let userEmail = 'test@test.com';
-let userPass = 'test';
-let userName = 'test';
-
 const storeNewUser = (userInfo) => {
-    console.log('register fetch');
-    fetch('/api/users/register', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(userInfo),
-    });
+  console.log("register fetch");
+  return fetch("/api/users/register", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(userInfo),
+  });
 };
-
+//added improvements on this function 
 const registerUser = () => {
-    const newUser = {
-        // email: userEmail.value,
-        // password: userPass.value,
-        // name: userName.value,
-        email: userEmail,
-        password: userPass,
-        name: userName,
-    };
-    storeNewUser(newUser).then(() => console.log('new user stored'));
+  const userEmail = document.querySelector("#email");
+  const userPass = document.querySelector("#password");
+  const userName = document.querySelector("#username");
+  const newUser = {
+    email: userEmail.value,
+    password: userPass.value,
+    name: userName.value,
+  };
+  storeNewUser(newUser).then(() => {
+    window.location.replace("/");
+  });
 };
 /////////////////////////////////////////////////////////
 const loginFormHandler = async (event) => {
@@ -34,26 +31,39 @@ const loginFormHandler = async (event) => {
   event.preventDefault();
 
   // Gather the data from the form elements on the page
-  const email = document.querySelector('#email-login').value.trim();
-  const password = document.querySelector('#password-login').value.trim();
+  const email = document.querySelector("#email-login").value.trim();
+  const password = document.querySelector("#password-login").value.trim();
 
   if (email && password) {
     // Send the e-mail and password to the server
-    const response = await fetch('/api/users/login', {
-      method: 'POST',
+    const response = await fetch("/api/users/login", {
+      method: "POST",
       body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
-      document.location.replace('/');
+      document.location.replace("/");
     } else {
-      alert('Failed to log in');
+      alert("Failed to log in");
     }
   }
 };
 
-document
-  .querySelector('.login-form')
-  .addEventListener('submit', loginFormHandler);
+// document
+//   .querySelector(".login-form")
+//   .addEventListener("submit", loginFormHandler);
 
+// document
+//   .querySelector("#registerButton")
+//   .addEventListener("click", registerUser);
+
+  document.addEventListener("DOMContentLoaded", function() {
+    document
+    .querySelector("#registerButton")
+    .addEventListener("click", registerUser);
+    document
+  .querySelector(".login-form")
+  .addEventListener("submit", loginFormHandler);
+
+  });
