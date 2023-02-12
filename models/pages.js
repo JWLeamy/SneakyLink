@@ -1,10 +1,9 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
 class Page extends Model {}
 
 Page.init(
-
     {
         id: {
             type: DataTypes.INTEGER,
@@ -24,7 +23,7 @@ Page.init(
         sequelize,
         freezeTableName: true,
         timestamps: false,
-        modelName: "Pages",
+        modelName: 'Pages',
     }
 );
 

@@ -13,15 +13,16 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    console.log(req.session.username);
     try {
         const user = await User.findOne({
-            where: { id: req.session.user_id },
+            where: { username: req.session.username },
         });
         console.log(user);
 
         const page = await Page.create({
-            user_id: user.id,
-            url_1: req.body.url,
+            username: user.username,
+            // url_1: req.body.url,
         });
         res.status(200).json(page);
     } catch (err) {
