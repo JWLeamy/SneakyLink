@@ -85,4 +85,14 @@ router.get('/register', async (req, res) => {
     }
 });
 
+
+router.get('/:username', async (req, res) => {
+    
+    const userData = await User.findByPk({ where: { username: req.params.username } });
+
+    res.render()
+
+})
+
+
 module.exports = router;
