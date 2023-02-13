@@ -1,27 +1,45 @@
 //js to create a page via a fetch call
 
-let userLink;
 let userId;
-let userDesc;
+let pName = $('#pageName').val();
+let pDesc = $('#pageDesc').val();
+let form = $('#pageForm');
 
-const pageSave = async (linkInfo) => {
+$('#createPage').click((e) => {
+    e.preventDefault();
+    console.log('creating a page');
+    // pageInfo(pName, pDesc);
+    pageSave();
+});
+const pageInfo = (title, desc) => {
+    // const info = {
+    //     title,
+    //     desc,
+    // };
+    // pName = '';
+    // pageSave(JSON.stringify(info));
+};
+const pageSave = async (pageInfo) => {
+    console.log(pageInfo);
     const page = await fetch('/api/pages', {
         method: 'POST',
         'Content-type': 'application/json',
-        body: linkInfo,
-    })
-        .then(() => {
-            console.log('succesfully created a page!');
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        body: pageInfo,
+    });
+    addPage();
 };
 
-const pageInfo = () => {
-    const info = {
-        url: userLink, //could potentially be turned into an array in order to store multiple urls
-        desc: userDesc,
-    };
-    pageSave(JSON.stringify(info));
+const addPage = async () => {
+    const newPage = await fetch('api/pages', {
+        method: 'GET',
+        header: { 'Content-type': 'application/json' },
+    });
+    console.log(JSON.stringify(newPage));
+    const insert = `<div id="page-${newPage.id}" data-id = ${newPage.id}> 
+        <h2>{${newPage.title}}</h2>
+        <p>{${newPage.desc}}</p>
+        <div id="p-${newPage.id}-link></div>
+        </div>`;
+    console.log(newPage);
+    $(insert).appendTo('.pages');
 };

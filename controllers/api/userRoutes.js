@@ -25,12 +25,12 @@ router.post('/login', async (req, res) => {
         }
 
         // Create session variables based on the logged in user
-        req.session.save(() => {
-            req.session.username = userData.username;
-            req.session.logged_in = true;
+        // req.session.save(() => {
+        req.session.username = userData.username;
+        req.session.logged_in = true;
 
-            res.json({ user: userData, message: 'Logged In!' });
-        });
+        res.json({ user: userData, message: 'Logged In!' });
+        // });
     } catch (err) {
         res.status(400).json(err);
     }
@@ -48,22 +48,22 @@ router.post('/logout', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
-    console.log(name, email, password);
     try {
-        const newUser = await User.create({
-            username: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-        });
+        const { username, email, password } = req.body;
+        console.log(username, email, password);
 
-        req.session.save(() => {
-            req.session.usermame = newUser.username;
-            req.session.logged_in = true;
-            return res.status(200).json({ user: newUser });
+        const newUser = await User.create({
+            username: username, //: req.body.username,
+            email: email, //: req.body.email,
+            password: password, //: req.body.password,
         });
+        console.log(newUser);
+        // req.session.save(() => {
+        req.session.username = newUser.username;
+        req.session.logged_in = true;
+        res.status(200).json(newUser);
     } catch (err) {
-        res.status(400).json({ message: 'Invalid Email or Password!' });
+        res.status(400).json(err);
     }
 });
 
