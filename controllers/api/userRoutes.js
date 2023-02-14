@@ -5,36 +5,36 @@ const User = require('../../models/User');
 
 // route for handling the login click (we will run a script at the bottom of the login page using a public JS helper, which on click of the login button will perform a post fetch that passes the users email and password in the body)
 router.post('/login', async (req, res) => {
+    try {
+        // Find the user who matches the requested username
+        const userData = await User.findOne({
+            where: { username: req.body.username },
+        });
 
-  try {
-    // Find the user who matches the requested username
-    const userData = await User.findOne({ where: { username: req.body.username } });
+        if (!userData) {
+            res.status(400).json({ message: 'Incorrect username or password' });
+            return;
+        }
 
-    if (!userData) {
-      res.status(400).json({ message: 'Incorrect username or password' });
-      return;
-    }
+        // Verify the posted password with the password store in the database
+        const validPassword = await userData.checkPassword(req.body.password);
 
-    // Verify the posted password with the password store in the database
-    const validPassword = await userData.checkPassword(req.body.password);
+        if (!validPassword) {
+            res.status(400).json({ message: 'Incorrect username or password' });
+            return;
+        }
 
-    if (!validPassword) {
-        res.status(400).json({ message: 'Incorrect username or password' });
-        return;
-    }
-
-    // Create session variables based on the logged in user
-    req.session.save(() => {
-        req.session.user_id = userData.username;
+        // Create session variables based on the logged in user
+        // req.session.save(() => {
+        req.session.username = userData.username;
         req.session.logged_in = true;
 
         res.json({ user: userData, message: 'Logged In!' });
-    });
+        // });
     } catch (err) {
         res.status(400).json(err);
     }
 });
-
 
 router.post('/logout', (req, res) => {
     if (req.session.logged_in) {
@@ -47,27 +47,25 @@ router.post('/logout', (req, res) => {
     }
 });
 
-
 router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
-    console.log(name, email, password);
     try {
-        const newUser = await User.create({
-            username: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-        });
+        const { username, email, password } = req.body;
+        console.log(username, email, password);
 
-        req.session.save(() => {
-            req.session.user_id = newUser.id;
-            req.session.logged_in = true;
-            return res.status(200).json({ user: newUser });
+        const newUser = await User.create({
+            username: username, //: req.body.username,
+            email: email, //: req.body.email,
+            password: password, //: req.body.password,
         });
+        console.log(newUser);
+        // req.session.save(() => {
+        req.session.username = newUser.username;
+        req.session.logged_in = true;
+        res.status(200).json(newUser);
     } catch (err) {
-        res.status(400).json({ message: 'Invalid Email or Password!' });
+        res.status(400).json(err);
     }
 });
-
 
 router.get('/register', async (req, res) => {
     //this was just for testing
@@ -81,7 +79,7 @@ router.get('/register', async (req, res) => {
             res.status(200).json(real);
         }
     } catch (err) {
-        res.status(500).json({ message: 'Logged In!'});
+        res.status(500).json({ message: 'Logged In!' });
     }
 });
 

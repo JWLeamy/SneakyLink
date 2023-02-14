@@ -14,10 +14,9 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
-
-            unique: true
+            unique: true,
         },
-        
+
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -40,7 +39,6 @@ User.init(
         //   type: DataTypes.BLOB("long"),
         // },
 
-        
         instagram_url: {
             type: DataTypes.STRING,
             allowNull: true,
