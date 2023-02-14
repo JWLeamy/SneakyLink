@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Page extends Model {}
+class Link extends Model {}
 //could potentially add a page name
-Page.init(
+Link.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -11,14 +11,14 @@ Page.init(
             autoIncrement: true,
             allowNull: true,
         },
-        // title: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
-        // desc: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
+        url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
 
         username: {
             type: DataTypes.STRING,
@@ -33,8 +33,8 @@ Page.init(
         sequelize,
         freezeTableName: true,
         timestamps: false,
-        modelName: 'Pages',
+        modelName: 'Links',
     }
 );
 
-module.exports = Page;
+module.exports = Link;

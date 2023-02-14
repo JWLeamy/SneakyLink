@@ -1,19 +1,19 @@
 const User = require('./User');
-const Link = require('./links');
-const Page = require('./Pages');
+const Link = require('./Link');
+// const Page = require('./Pages');
 
-User.hasMany(Page, {
+User.hasMany(Link, {
     foreignKey: 'username',
     onDelete: 'CASCADE',
 });
 
-Page.belongsTo(User, {
+Link.belongsTo(User, {
     foreignKey: 'username',
     // onDelete: 'CASCADE',
 });
-Page.hasMany(Link, { foreignKey: 'page_id' });
-Link.belongsTo(Page, {
-    foreignKey: 'page_id',
-});
+// Page.hasMany(Link, { foreignKey: 'page_id' });
+// Link.belongsTo(Page, {
+//     foreignKey: 'page_id',
+// });
 
-module.exports = { User, Page, Link };
+module.exports = { User, Link };
