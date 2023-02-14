@@ -49,16 +49,16 @@ router.get('/register', withAuth, (req, res) => {
 });
 
 router.get('/profile', withAuth, async (req, res) => {
-  try {
-    res.render("userProfile");
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    try {
+        res.render('userProfile');
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
-router.get('/homepage', (req, res) => {
+router.get('/:username', (req, res) => {
     try {
-        if (req.session.logged_in) {
+        if (req.params.username == req.session.username) {
             res.render('userProfile');
         } else {
             res.render('userLogin');

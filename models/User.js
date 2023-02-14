@@ -39,26 +39,27 @@ User.init(
         //   type: DataTypes.BLOB("long"),
         // },
 
-        instagram_url: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        twitter_url: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        facebook_url: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        youtube_url: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        tiktok_url: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
+        //migrated over to the link model
+        // instagram_url: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        // twitter_url: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        // facebook_url: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        // youtube_url: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
+        // tiktok_url: {
+        //     type: DataTypes.STRING,
+        //     allowNull: true,
+        // },
     },
     {
         hooks: {

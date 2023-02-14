@@ -15,8 +15,9 @@ $('#login').click(async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace(`/`);
-            // document.location.replace(`/${username}`)
+            //this is the change
+            // document.location.replace(`/`);
+            document.location.replace(`/${username}`);
         } else {
             $('#alert')
                 .html(`<div class="alert alert-dark alert-dismissible fade show d-flex justify-content-center align-items-center p-0 py-2 m-0 position-relative" role="alert">
