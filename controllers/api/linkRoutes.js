@@ -10,20 +10,12 @@ router.get('/', async (req, res) => {
         });
         res.status(200).json(allLinks);
     } catch (err) {
+        res.status(200).json(err);
         console.log(err);
     }
 });
 router.get('/', async (req, res) => {
     try {
-        // const link = await Link.findByPk({ id: req.params.id });
-        // res.status(200).json(allLinks);
-        // const link = Link.findOne({
-        //     where: { username: req.session.username },
-        //     order:sequelize.literal(
-        // });
-        // const link_id = Link.max('id', {
-        //     where: { username: req.session.username },
-        // });
         console.log(req.session.username);
         const link = await Link.findAll({
             limit: 1,
@@ -31,7 +23,7 @@ router.get('/', async (req, res) => {
             order: [['id', 'DESC']],
         });
         console.log(link);
-        // res.send(JSON.stringify(link));
+        res.status(400).json(link);
     } catch (err) {
         console.log(err);
         res.status(400).json(err);
@@ -58,6 +50,10 @@ router.post('/', async (req, res) => {
         const link = await Link.create({
             username: req.session.username,
             type: req.body.type,
+<<<<<<< Updated upstream
+=======
+            url: req.body.url,
+>>>>>>> Stashed changes
         });
         res.status(200).json({ message: 'link created' });
     } catch (err) {

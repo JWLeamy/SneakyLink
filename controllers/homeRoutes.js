@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Link } = require('../models');
 const withAuth = require('../utils/auth');
 
 // To me, it seems like home routes might just be used to pull up general pages (landing, login, register)
@@ -25,24 +25,11 @@ router.get('/login', withAuth, (req, res) => {
         res.status(500).json(err);
     }
 });
-// route for logging in a user
-// router.post('/login', withAuth, (req, res) => {
-//     try {
-//         res.render('homepage');
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-
-// });
 // route for when the user clicks the register button from the landing page
 // again, adding the withAuth so that if the user is already logged in, they cannot access the sign up page.
 router.get('/register', withAuth, (req, res) => {
     try {
-        // if (req.session.logged_in) {
-        //     res.render('userProfile');
-        // } else {
         res.render('userRegistration');
-        // }
     } catch (err) {
         res.status(500).json(err);
     }
@@ -68,14 +55,6 @@ router.get('/:username', (req, res) => {
     }
 });
 
-router.post('/register', withAuth, (req, res) => {
-    try {
-        res.render('userProfile');
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
 router.get('/logout', (req, res) => {
     try {
         res.render('logout');
@@ -84,26 +63,5 @@ router.get('/logout', (req, res) => {
         res.status(404);
     }
 });
-
-// I COPIED THE ORIGINAL GET route for '/' BELOW, IN CASE WE WANT TO USE THINGS FROM IT LATER.
-
-// router.get('/', withAuth, async (req, res) => {
-//     try {
-//         const userData = await User.findAll({
-//             attributes: { exclude: ['password'] },
-//             order: [['name', 'ASC']],
-//         });
-
-//         const users = userData.map((project) => project.get({ plain: true }));
-
-//         res.render('homepage', {
-//             users,
-//             // Pass the logged in flag to the template
-//             logged_in: req.session.logged_in,
-//         });
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// });
 
 module.exports = router;
