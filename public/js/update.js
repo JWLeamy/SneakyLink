@@ -22,7 +22,8 @@ const loadData = async () => {
 loadData();
 
 const collectNewData = () => {
-    for (let i = 0; i < pageInputs.length; i++) {
+    for (let i=0; i < pageInputs.length; i++) {
+
         let pageInputIndex = 0;
 
         let currentInput = `'#input${pageInputIndex.toString}'`;
