@@ -31,13 +31,13 @@
             ></span></button>
         <div
             class='collapse navbar-collapse position-relative'
-            id='navcol-1'
+            id='navcol-1 logout'
             style='justify-content: end;'
         ><a
-                id="logout"
                 class='btn btn-primary shadow end-0 href=&quot;profile.html&quot;'
                 role='button'
-            >Logout</a></div>
+                href='/login'
+            >Home</a></div>
     </div>
 </nav>
 <div>
@@ -59,13 +59,6 @@
                     class='fw-bold text-primary mb-0'
                     style='margin-top: 22px;'
                 >{{userData.username}}</h5>
-                <div></div><a
-                    class='btn btn-primary shadow end-0 href=&quot;profile.html&quot;'
-                    role='button'
-                    href='/updateProfile'
-                    style='/*height: 10%;*/padding: 4px;margin: 42px;margin-bottom: 10px;padding-bottom: 2px;padding-top: 1px;'
-                >Settings</a>
-                </svg>
             </div>
         </div>
     </section>
