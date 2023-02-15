@@ -43,13 +43,27 @@ router.get('/:username', async (req, res) => {
       if (req.params.username === req.session.username) {
         res.render('userProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
       } else {
-        res.render('sharedProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
+        res.render('sharedProfile', { layout: "main", userData: userData, userLinks: userLinks });
       }
     } catch (err) {
       console.log(err);
       res.status(404);
     }
 });
+
+/* router.get('/:username/settings', async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.params.username);
+        const userLinks = await Link.findAll({ where: { username: req.params.username } });
+        console.log(typeof userLinks)
+      if (req.params.username === req.session.username) {
+        res.render('updateProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
+      } 
+    } catch (err) {
+      console.log(err);
+      res.status(404);
+    }
+}); */
 
 
 router.get('/logout', (req, res) => {
