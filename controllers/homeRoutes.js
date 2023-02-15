@@ -41,6 +41,7 @@ router.get('/:username', async (req, res) => {
         const userLinks = await Link.findAll({ where: { username: req.params.username } });
       if (req.params.username === req.session.username) {
         res.render('userProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
+        console.log(userData)
       } else {
         res.render('sharedProfile', { layout: "main", userData: userData, userLinks: userLinks });
       }

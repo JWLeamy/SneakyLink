@@ -70,5 +70,25 @@ router.post('/register', async (req, res) => {
     }
 });
 
+router.post('/link', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+        console.log(username, email, password);
+
+        const newUser = await User.create({
+            username: username, //: req.body.username,
+            email: email, //: req.body.email,
+            password: password, //: req.body.password,
+        });
+        console.log(newUser);
+        // req.session.save(() => {
+        req.session.username = newUser.username;
+        req.session.logged_in = true;
+        res.status(200).json(newUser);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
 
 module.exports = router;
