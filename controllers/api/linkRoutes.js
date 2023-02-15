@@ -18,9 +18,7 @@ router.get('/', async (req, res) => {
     try {
         console.log(req.session.username);
         const link = await Link.findAll({
-            limit: 1,
             where: { username: req.session.username },
-            order: [['id', 'DESC']],
         });
         console.log(link);
         res.status(400).json(link);
@@ -32,33 +30,35 @@ router.get('/', async (req, res) => {
 //need to implement a bulk creation method
 router.post('/', async (req, res) => {
     console.log(req.session.username);
+    console.log(`req body: ${req.body}`);
+    var body = req.body;
+    for (let x in req.body) {
+        console.log(x);
+        body[x].username = req.session.username;
+    }
+    console.log(JSON.stringify(body));
+
     try {
-        const link = await Link.bulkCreate([
-            {
-                username: req.session.username,
-            },
-        ]);
+        const link = await Link.bulkCreate(body);
+
         res.status(200).json({ message: 'link created' });
     } catch (err) {
         res.json(err).status(500);
     }
 });
 
-router.post('/', async (req, res) => {
-    console.log(req.session.username);
-    try {
-        const link = await Link.create({
-            username: req.session.username,
-            type: req.body.type,
-<<<<<<< Updated upstream
-=======
-            url: req.body.url,
->>>>>>> Stashed changes
-        });
-        res.status(200).json({ message: 'link created' });
-    } catch (err) {
-        res.json(err).status(500);
-    }
-});
+// router.post('/', async (req, res) => {
+//     console.log(req.session.username);
+//     try {
+//         const link = await Link.create({
+//             username: req.session.username,
+//             type: req.body.type,
+//             url: req.body.url,
+//         });
+//         res.status(200).json({ message: 'link created' });
+//     } catch (err) {
+//         res.json(err).status(500);
+//     }
+// });
 
 module.exports = router;

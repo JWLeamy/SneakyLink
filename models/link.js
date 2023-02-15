@@ -13,7 +13,7 @@ Link.init(
         },
         url: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         type: {
             type: DataTypes.STRING,
