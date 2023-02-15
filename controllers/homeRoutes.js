@@ -51,7 +51,9 @@ router.get('/:username', async (req, res) => {
     }
 });
 
+
 /* router.get('/setting/:username', async (req, res) => {
+
     try {
         const userData = await User.findByPk(req.params.username);
         const userLinks = await Link.findAll({ where: { username: req.params.username } });
@@ -64,6 +66,7 @@ router.get('/:username', async (req, res) => {
       res.status(404);
     }
 }); */
+
 
 
 router.get('/logout', (req, res) => {

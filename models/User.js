@@ -33,33 +33,6 @@ User.init(
                 len: [8],
             },
         },
-
-        //image will most likely be stored as a binary
-        // image: {
-        //   type: DataTypes.BLOB("long"),
-        // },
-
-        //migrated over to the link model
-        // instagram_url: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
-        // twitter_url: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
-        // facebook_url: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
-        // youtube_url: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
-        // tiktok_url: {
-        //     type: DataTypes.STRING,
-        //     allowNull: true,
-        // },
     },
     {
         hooks: {
