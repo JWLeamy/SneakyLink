@@ -6,7 +6,6 @@ const withAuth = require('../utils/auth');
 // We should be using the API routes for getting specific things, such as once the user is logged in to get their profile page based on their ID, or to make post, put, and delete requests
 
 // ON PAGE LOAD ROUTE: I think we want to check if the user is logged in, then send them to the profile page, otherwise, render the landing page.
-
 router.get('/', withAuth, async (req, res) => {
     try {
         res.render('landingPage');
@@ -17,7 +16,6 @@ router.get('/', withAuth, async (req, res) => {
 
 // route for when the user clicks the login button from the landing page
 // I added withAuth so that If the user somehow tries to go to the login page while being logged in, this should be a catch which would re-direct them to the profile page
-
 router.get('/login', withAuth, (req, res) => {
     try {
         res.render('userLogin');
@@ -25,6 +23,7 @@ router.get('/login', withAuth, (req, res) => {
         res.status(500).json(err);
     }
 });
+
 // route for when the user clicks the register button from the landing page
 // again, adding the withAuth so that if the user is already logged in, they cannot access the sign up page.
 router.get('/register', withAuth, (req, res) => {
@@ -35,25 +34,39 @@ router.get('/register', withAuth, (req, res) => {
     }
 });
 
-router.get('/profile', withAuth, async (req, res) => {
+
+router.get('/:username', async (req, res) => {
     try {
-        res.render('userProfile');
+        const userData = await User.findByPk(req.params.username);
+        const userLinks = await Link.findAll({ where: { username: req.params.username } });
+        console.log(typeof userLinks)
+      if (req.params.username === req.session.username) {
+        res.render('userProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
+      } else {
+        res.render('sharedProfile', { layout: "main", userData: userData, userLinks: userLinks });
+      }
     } catch (err) {
-        res.status(500).json(err);
+      console.log(err);
+      res.status(404);
     }
 });
 
-router.get('/:username', (req, res) => {
+
+/* router.get('/:username/settings', async (req, res) => {
     try {
-        if (req.params.username == req.session.username) {
-            res.render('userProfile');
-        } else {
-            res.render('userLogin');
-        }
+        const userData = await User.findByPk(req.params.username);
+        const userLinks = await Link.findAll({ where: { username: req.params.username } });
+        console.log(typeof userLinks)
+      if (req.params.username === req.session.username) {
+        res.render('updateProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
+      } 
     } catch (err) {
-        res.status(500).json(err);
+      console.log(err);
+      res.status(404);
     }
-});
+}); */
+
+
 
 router.get('/logout', (req, res) => {
     try {
@@ -63,5 +76,6 @@ router.get('/logout', (req, res) => {
         res.status(404);
     }
 });
+
 
 module.exports = router;
