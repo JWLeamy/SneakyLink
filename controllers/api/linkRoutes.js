@@ -27,7 +27,13 @@ router.get("/", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+router.post('/submit', async (req, res) => {
+    console.log(req.body)
+})
+
 //need to implement a bulk creation method
+
 router.post("/", async (req, res) => {
   console.log(req.session.username);
   console.log(`req body: ${req.body}`);
@@ -38,14 +44,17 @@ router.post("/", async (req, res) => {
   }
   console.log(JSON.stringify(body));
 
+
   try {
     const link = await Link.bulkCreate(body);
+
 
     res.status(200).json({ message: "link created" });
   } catch (err) {
     res.json(err).status(500);
   }
 });
+
 
 router.post("/savelink", async (req, res) => {
 //   console.log(req.body.links);
