@@ -7,19 +7,19 @@
 	,
 	{
 "username":"test",
-	"type":"1twitter",
+	"type":"instagram",
 	"url": "test.com"
 	}
 	,
 	{
 "username":"test",
-	"type":"2twitter",
+	"type":"snapchat",
 	"url": "test.com"
 	}
 	,
 	{
 "username":"test",
-	"type":"3twitter",
+	"type":"tiktok",
 	"url": "test.com"
 	}
  ]
