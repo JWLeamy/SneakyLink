@@ -34,6 +34,7 @@ User.init(
             },
         },
     },
+    //add bio
     {
         hooks: {
             beforeCreate: async (newUserData) => {
