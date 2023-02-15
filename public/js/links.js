@@ -1,16 +1,31 @@
-//js for link creation
+//js to create a link via a fetch call
 
-let userLink;
-let page_id;
-let user;
+let userId;
+let lName = $('#linkName').val();
+let lURL = $('#linkUrl').val();
+let form = $('#linkForm');
 
-const saveLink = async (id = 1, link = 'test.com') => {
-    const newLink = fetch('api/links', {
+$('#createLink').click((e) => {
+    e.preventDefault();
+    console.log('creating a link');
+    linkSave();
+});
+const linkSave = async (linkInfo) => {
+    const info = {
+        type,
+        url,
+    };
+    const link = await fetch('/api/pages', {
         method: 'POST',
-        headers: { ContentType: 'application/json' },
-        body: JSON.stringify({ page_id: id, url: link }),
+        'Content-type': 'application/json',
+        body: JSON.stringify(info),
     });
-    if (newLink.ok) {
-        console.log('new link created');
-    }
+    addLink();
+};
+//used for getting links
+const addLink = async () => {
+    const newLink = await fetch('api/links', {
+        method: 'GET',
+        header: { 'Content-type': 'application/json' },
+    });
 };

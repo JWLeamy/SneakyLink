@@ -13,11 +13,11 @@ Link.init(
         },
         url: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
         type: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
 
         username: {

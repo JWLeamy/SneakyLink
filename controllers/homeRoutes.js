@@ -12,6 +12,7 @@ router.get('/', withAuth, async (req, res) => {
     }
 });
 
+
 // route for when the user clicks the login button from the landing page
 // I added withAuth so that If the user somehow tries to go to the login page while being logged in, this should be a catch which would re-direct them to the profile page
 router.get('/login', withAuth, (req, res) => {
@@ -21,6 +22,7 @@ router.get('/login', withAuth, (req, res) => {
         res.status(500).json(err);
     }
 });
+
 
 // route for when the user clicks the register button from the landing page
 // again, adding the withAuth so that if the user is already logged in, they cannot access the sign up page.
