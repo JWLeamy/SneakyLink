@@ -1,19 +1,5 @@
-$('#logout').click(async (event) => {
-    const response = await fetch('/api/users/logout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-    });
 
-    if (response.ok) {
-        // If successfully logged out, redirect to the logout page
-        document.location.replace('/logout');
-    } else {
-        alert(response.statusText);
-    }
-});
-
-
-/* const logout = async () => {
+const logout = async () => {
     // Make a POST request to destroy the session on the back end
     const response = await fetch('/api/users/logout', {
         method: 'POST',
@@ -27,4 +13,4 @@ $('#logout').click(async (event) => {
         alert(response.statusText);
     }
 };
-document.querySelector('#logout').addEventListener('click', logout); */
+document.querySelector('#logout').addEventListener('click', logout);

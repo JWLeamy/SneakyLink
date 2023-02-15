@@ -52,7 +52,8 @@ router.get('/:username', async (req, res) => {
 });
 
 
-/* router.get('/:username/settings', async (req, res) => {
+/* router.get('/setting/:username', async (req, res) => {
+
     try {
         const userData = await User.findByPk(req.params.username);
         const userLinks = await Link.findAll({ where: { username: req.params.username } });
