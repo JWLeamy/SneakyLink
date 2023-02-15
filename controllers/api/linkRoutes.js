@@ -37,21 +37,27 @@ router.get('/', async (req, res) => {
         res.status(400).json(err);
     }
 });
+//need to implement a bulk creation method
+router.post('/', async (req, res) => {
+    console.log(req.session.username);
+    try {
+        const link = await Link.bulkCreate([
+            {
+                username: req.session.username,
+            },
+        ]);
+        res.status(200).json({ message: 'link created' });
+    } catch (err) {
+        res.json(err).status(500);
+    }
+});
 
 router.post('/', async (req, res) => {
     console.log(req.session.username);
     try {
-        // const user = await User.findOne({
-        //     where: { username: req.session.username },
-        // });
-        // console.log(user);
-        // console.log(req.body.title);
         const link = await Link.create({
-            // username: user.username,
             username: req.session.username,
-            // title: req.body.title,
-            // desc: req.body.desc,
-            // url_1: req.body.url,
+            type: req.body.type,
         });
         res.status(200).json({ message: 'link created' });
     } catch (err) {
