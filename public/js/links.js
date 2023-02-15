@@ -15,7 +15,7 @@ const linkSave = async (linkInfo) => {
         type,
         url,
     };
-    const link = await fetch('/api/pages', {
+    const link = await fetch('/api/links', {
         method: 'POST',
         'Content-type': 'application/json',
         body: JSON.stringify(info),
