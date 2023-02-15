@@ -19,7 +19,6 @@ Link.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-
         username: {
             type: DataTypes.STRING,
             references: {
