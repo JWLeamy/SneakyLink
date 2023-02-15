@@ -46,7 +46,7 @@ const storeNewUser = async (userInfo) => {
         headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
-        document.location.replace(`/${newUser.username}`);
+        document.location.replace(`/${userInfo.username}`);
     } else {
         $('#alert')
             .html(`<div class="alert alert-dark alert-dismissible fade show d-flex justify-content-center align-items-center p-0 py-2 m-0 position-relative" role="alert">
