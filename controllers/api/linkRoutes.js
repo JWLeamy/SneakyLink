@@ -27,8 +27,13 @@ router.get('/', async (req, res) => {
         res.status(400).json(err);
     }
 });
+
+router.post('/submit', async (req, res) => {
+    console.log(req.body)
+})
+
 //need to implement a bulk creation method
-router.post('/', async (req, res) => {
+/* router.post('/', async (req, res) => {
     console.log(req.session.username);
     console.log(`req body: ${req.body}`);
     var body = req.body;
@@ -45,7 +50,7 @@ router.post('/', async (req, res) => {
     } catch (err) {
         res.json(err).status(500);
     }
-});
+}); */
 
 // router.post('/', async (req, res) => {
 //     console.log(req.session.username);

@@ -40,7 +40,7 @@ $('#savelinks').click((event) => {
     
         let linkObject = {
 
-            username: newUsername,
+            url: newUsername,
             type: socialink[i].attr('id'),
             
         };
@@ -48,18 +48,24 @@ $('#savelinks').click((event) => {
     }
     console.log(3, linkData);
 
+    storeNewLinks(linkData);
     // storeNewLinks(linkData)
 })
 
 const storeNewLinks = async (userInfo) => {
     console.log('register fetch');
-    const response = await fetch('/api/users/submitlinks', {
+    const response = await fetch('/api/link/submit', {
         method: 'POST',
         body: JSON.stringify(userInfo),
         headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
         window.alert('your links have been saved!')
+    } else {
+        console.log('error')
+        //right now we are getting an error. 
+        //The next step is to create the above post request
+        //
     }
 };
 

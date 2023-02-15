@@ -11,6 +11,14 @@ Link.init(
             autoIncrement: true,
             allowNull: true,
         },
+        url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         username: {
             type: DataTypes.STRING,
             references: {
@@ -18,10 +26,6 @@ Link.init(
                 key: 'username',
             },
         },
-        type: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
     },
 
     {
