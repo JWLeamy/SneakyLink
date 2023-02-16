@@ -33,6 +33,55 @@ User.init(
                 len: [8],
             },
         },
+        /* twitter: {
+            type: DataTypes.STRING,
+            references: {
+              model: "link",
+              key: "username",
+              type: "twitter",
+            },
+        },
+        instagram: {
+            type: DataTypes.STRING,
+            references: {
+              model: "link",
+              key: "username",
+              type: "instagram",
+            },
+        },
+        tiktok: {
+            type: DataTypes.STRING,
+            references: {
+              model: "link",
+              key: "username",
+              type: "tiktok",
+            },
+        },
+        youtube: {
+            type: DataTypes.STRING,
+            references: {
+              model: "link",
+              key: "username",
+              type: "youtube",
+            },
+        },
+        facebook: {
+            type: DataTypes.STRING,
+            references: {
+              model: "link",
+              key: "username",
+              type: "facebook",
+            },
+        },
+        snapchat: {
+            type: DataTypes.STRING,
+            references: {
+              model: "link",
+              key: "username",
+              type: "snapchat",
+            },
+        }
+           */
     },
     //add bio
     {

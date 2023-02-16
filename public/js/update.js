@@ -1,6 +1,8 @@
 var pageInputs = 6;
 
 var linkData = [];
+var renderedLinks
+
 
 const loadData = async () => {
     await fetch('/api/links', {
@@ -12,8 +14,11 @@ const loadData = async () => {
             return data.json();
         })
         .then((data) => {
+            renderedLinks = data;
+            console.log(renderedLinks)
             for (let i = 0; i < data.length; i++) {
-                let input = $(`*[data-type="${data[i].type}"]`);
+                console.log(data[i].type)
+                let input = $(`#${data[i].type}`);
                 input.val(data[i].url);
             }
         });
@@ -48,7 +53,6 @@ $('#savelinks').click((event) => {
         }
     }
 
-    storeNewLinks(linkData);
 
 })
 
@@ -61,13 +65,28 @@ const storeNewLinks = async (userInfo) => {
     });
     console.log(userInfo)
     if (response.ok) {
-        window.alert('your links have been saved!')
+        console.log('your links have been saved!')
     } else {
         console.log('error')
         //right now we are getting an error. 
     }
 };
 
+const UpdateLinks = async (userInfo) => {
+    console.log('register fetch');
+    const response = await fetch('/api/links/updatelink', {
+        method: 'POST',
+        body: JSON.stringify(userInfo),
+        headers: { 'Content-Type': 'application/json' },
+    });
+    console.log(userInfo)
+    if (response.ok) {
+        console.log('your links have been updated!')
+    } else {
+        console.log('error')
+        //right now we are getting an error. 
+    }
+};
 
 
 
