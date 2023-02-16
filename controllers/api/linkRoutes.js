@@ -28,10 +28,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post('/submit', async (req, res) => {
-    console.log(req.body)
-})
-
 //need to implement a bulk creation method
 
 router.post("/", async (req, res) => {
@@ -59,12 +55,14 @@ router.post("/", async (req, res) => {
 router.post("/savelink", async (req, res) => {
 //   console.log(req.body.links);
   const linkArray = req.body;
+  console.log(1, 'test')
   const linkUrl = linkArray.map((linkElement) => {
     let linkObj = {
       username: req.session.username,
       type: linkElement.type,
       url: linkElement.url,
     };
+    console.log(2, 'test')
     return linkObj;
   });
   try {

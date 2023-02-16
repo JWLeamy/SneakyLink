@@ -1,4 +1,4 @@
-var pageInputs = 6;
+/* var pageInputs = 6;
 
 var linkData = [];
 
@@ -19,7 +19,7 @@ const loadData = async () => {
         });
 };
 
-loadData();
+loadData(); */
 
 const twitter = $('#twitter')
 const instagram = $('#instagram')
@@ -37,15 +37,20 @@ $('#savelinks').click((event) => {
     for (let i=0; i < socialink.length; i++) {
 
         var newUsername = socialink[i].val()
-    
-        let linkObject = {
+        if (newUsername !== "") {
+                let linkObject = {
 
-            url: newUsername,
-            type: socialink[i].attr('id'),
-            
-        };
-        linkData.push(linkObject);
-    }
+                url: newUsername,
+                type: socialink[i].attr('id'),
+            };
+        
+            linkData.push(linkObject);
+        }
+        }
+
+        
+    
+        
     console.log(3, linkData);
 
     storeNewLinks(linkData);
@@ -54,20 +59,24 @@ $('#savelinks').click((event) => {
 
 const storeNewLinks = async (userInfo) => {
     console.log('register fetch');
-    const response = await fetch('/api/link/submit', {
+    const response = await fetch('/api/links/savelink', {
         method: 'POST',
         body: JSON.stringify(userInfo),
         headers: { 'Content-Type': 'application/json' },
     });
+    console.log(userInfo)
     if (response.ok) {
         window.alert('your links have been saved!')
     } else {
         console.log('error')
         //right now we are getting an error. 
-        //The next step is to create the above post request
-        //
     }
 };
+
+
+
+
+
 
 /* const collectNewData = () => {
     for (let i=0; i < pageInputs.length; i++) {
