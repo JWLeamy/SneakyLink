@@ -8,12 +8,12 @@ const loadData = async () => {
         header: { 'Content-type': 'application/json' },
     })
         .then((data) => {
+            console.log(data)
             return data.json();
         })
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
                 let input = $(`*[data-type="${data[i].type}"]`);
-                console.log('update page input is' + input);
                 input.val(data[i].url);
             }
         });
