@@ -36,24 +36,20 @@ $('#savelinks').click((event) => {
     for (let i=0; i < socialink.length; i++) {
 
         var newUsername = socialink[i].val()
-        if (newUsername !== "") {
-                let linkObject = {
+            
+            if (newUsername !== "") {
+                    let linkObject = {
 
-                url: newUsername,
-                type: socialink[i].attr('id'),
-            };
-        
-            linkData.push(linkObject);
+                    url: newUsername,
+                    type: socialink[i].attr('id'),
+                };
+            
+                linkData.push(linkObject);
         }
-        }
-
-        
-    
-        
-    console.log(3, linkData);
+    }
 
     storeNewLinks(linkData);
-    // storeNewLinks(linkData)
+
 })
 
 const storeNewLinks = async (userInfo) => {
