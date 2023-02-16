@@ -1,4 +1,4 @@
-/* var pageInputs = 6;
+var pageInputs = 6;
 
 var linkData = [];
 
@@ -19,7 +19,7 @@ const loadData = async () => {
         });
 };
 
-loadData(); */
+loadData();
 
 const twitter = $('#twitter')
 const instagram = $('#instagram')
@@ -32,7 +32,6 @@ var socialink = [twitter, instagram, tiktok, youtube, facebook, snapchat]
 
 $('#savelinks').click((event) => {
     var linkData = [];
-    console.log('hi')
 
     for (let i=0; i < socialink.length; i++) {
 
