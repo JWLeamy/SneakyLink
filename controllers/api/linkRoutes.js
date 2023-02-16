@@ -8,25 +8,27 @@ router.get("/", async (req, res) => {
     const allLinks = await Link.findAll({
       where: { username: req.session.username },
     });
+    console.log(allLinks)
     res.status(200).json(allLinks);
   } catch (err) {
+    console.log(err);
     res.status(200).json(err);
-    console.log(err);
   }
 });
-router.get("/", async (req, res) => {
-  try {
-    console.log(req.session.username);
-    const link = await Link.findAll({
-      where: { username: req.session.username },
-    });
-    console.log(link);
-    res.status(400).json(link);
-  } catch (err) {
-    console.log(err);
-    res.status(400).json(err);
-  }
-});
+
+// router.get("/", async (req, res) => {
+//   try {
+//     console.log(req.session.username);
+//     const link = await Link.findAll({
+//       where: { username: req.session.username },
+//     });
+//     console.log(link);
+//     res.status(400).json(link);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json(err);
+//   }
+// });
 
 //need to implement a bulk creation method
 

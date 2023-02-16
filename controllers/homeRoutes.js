@@ -39,11 +39,26 @@ router.get('/:username', async (req, res) => {
     try {
         const userData = await User.findByPk(req.params.username);
         const userLinks = await Link.findAll({ where: { username: req.params.username } });
+        // get just the data we want from the find all (which returns a large object containing a lot of random things) by mapping it
+        const plainUserLinks = userLinks.map(el => el.dataValues)
+        // convert the array plainUserLinks to an object whose keys are the type of link that that the object is.
+        function mapToObj(inputMap) {
+          let obj = {};
+      
+          inputMap.forEach(function(value, key){
+            key = value.type;
+            obj[key] = value
+          });
+
+          return obj;
+        }
+
+        const plainUserLinksObject = mapToObj(plainUserLinks);
+
       if (req.params.username === req.session.username) {
-        res.render('userProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
-        console.log(userData)
+        res.render('userProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: plainUserLinksObject });
       } else {
-        res.render('sharedProfile', { layout: "main", userData: userData, userLinks: userLinks });
+        res.render('sharedProfile', { layout: "main", userData: userData, userLinks: plainUserLinksObject });
       }
     } catch (err) {
       console.log(err);
@@ -56,22 +71,13 @@ router.get('/:username/update-profile', async (req, res) => {
     try {
         const userData = await User.findByPk(req.params.username);
         const userLinks = await Link.findAll({ where: { username: req.params.username } });
+        const plainUserLinks = userLinks.map(el => el.dataValues)
       if (req.params.username === req.session.username) {
-        res.render('updateProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: userLinks });
+        res.render('updateProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: plainUserLinks});
       };
     } catch (err) {
       console.log(err);
       res.status(404);
-    }
-});
-
-
-router.get('/logout', (req, res) => {
-    try {
-        res.render('logout');
-    } catch (err) {
-        console.log(err);
-        res.status(404);
     }
 });
 

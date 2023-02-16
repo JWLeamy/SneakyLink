@@ -1,25 +1,25 @@
 [
 	{
 "username":"test",
-	"type":"twitter",
+	"type":"Twitter",
 	"url": "test.com"
 	}
 	,
 	{
 "username":"test",
-	"type":"instagram",
+	"type":"Instagram",
 	"url": "test.com"
 	}
 	,
 	{
 "username":"test",
-	"type":"snapchat",
+	"type":"Snapchat",
 	"url": "test.com"
 	}
 	,
 	{
 "username":"test",
-	"type":"tiktok",
+	"type":"TikTok",
 	"url": "test.com"
 	}
  ]
