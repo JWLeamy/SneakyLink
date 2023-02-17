@@ -1,100 +1,69 @@
 var pageInputs = 6;
 
-var linkData = [];
-
 const loadData = async () => {
+    for (let i = 1; i <= pageInputs; i++) {
+        let input = document.getElementById(`input${i}`);
+        input.setAttribute("data-existing", false)
+    };
+
     await fetch('/api/links', {
         method: 'GET',
         header: { 'Content-type': 'application/json' },
     })
         .then((data) => {
-            console.log(data)
             return data.json();
         })
         .then((data) => {
             for (let i = 0; i < data.length; i++) {
                 let input = $(`*[data-type="${data[i].type}"]`);
                 input.val(data[i].url);
+                let inputID = input.attr('id')
+                let targetInput = document.getElementById(inputID);
+                targetInput.setAttribute("data-existing", true);
             }
         });
 };
 
 loadData();
 
-const twitter = $('#twitter')
-const instagram = $('#instagram')
-const tiktok = $('#tiktok')
-const youtube = $('#youtube')
-const facebook = $('#facebook')
-const snapchat = $('#snapchat')
+var newLinkData = [];
+var updateLinkData = [];
 
-var socialink = [twitter, instagram, tiktok, youtube, facebook, snapchat]
+$('#save-data').click(async (event) => {
+    for (let i=1; i <= pageInputs; i++) {
+        let input = document.getElementById(`input${i}`);
 
-$('#savelinks').click((event) => {
-    var linkData = [];
+        if (input.value === ""){
+            continue;
+        } 
+        if (input.getAttribute("data-existing") === "true") {
+            let linkObject = {
+                type: input.getAttribute("data-type"),
+                url: input.value,
+            };
+            updateLinkData.push(linkObject);
+        } 
+        if (input.getAttribute("data-existing") === "false") {
+            let linkObject = {
+                type: input.getAttribute("data-type"),
+                url: input.value,
+            };
+            newLinkData.push(linkObject)
+        };
+    };
 
-    for (let i=0; i < socialink.length; i++) {
-
-        var newUsername = socialink[i].val()
-            
-            if (newUsername !== "") {
-                    let linkObject = {
-
-                    url: newUsername,
-                    type: socialink[i].attr('id'),
-                };
-            
-                linkData.push(linkObject);
-        }
-    }
-
-    storeNewLinks(linkData);
-
-})
-
-const storeNewLinks = async (userInfo) => {
-    console.log('register fetch');
-    const response = await fetch('/api/links/savelink', {
+    const createNewData = await fetch('/api/links/createlink', {
         method: 'POST',
-        body: JSON.stringify(userInfo),
+        body: JSON.stringify(newLinkData),
         headers: { 'Content-Type': 'application/json' },
     });
-    console.log(userInfo)
-    if (response.ok) {
-        window.alert('your links have been saved!')
-    } else {
-        console.log('error')
-        //right now we are getting an error. 
-    }
-};
 
-
-
-
-
-
-/* const collectNewData = () => {
-    for (let i=0; i < pageInputs.length; i++) {
-
-        let pageInputIndex = 0;
-
-        let currentInput = `'#input${pageInputIndex.toString}'`;
-
-        if ($(currentInput).val().trim() ==! '') {
-            continue;
-        }
-
-        let linkObject = {
-            username: $(currentInput).val().trim(),
-            type: $(currentInput).data('type'),
-            //cant do this here: username: req.session.username,
-        };
-        linkData.push(linkObject);
-        console.log(linkData);
-
-        pageInputIndex++;
-    }
-}; */
+    const updateData = await fetch('/api/links/updatelink', {
+        method: 'PUT',
+        body: JSON.stringify(updateLinkData),
+        headers: { 'Content-Type': 'application/json' },
+    });
+})
 
 
 

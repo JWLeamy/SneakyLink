@@ -1,4 +1,5 @@
 //route to create links
+//route to create links
 const router = require("express").Router();
 const Link = require("../../models/link");
 const User = require("../../models/User");
@@ -8,13 +9,13 @@ router.get("/", async (req, res) => {
     const allLinks = await Link.findAll({
       where: { username: req.session.username },
     });
-    console.log(allLinks)
     res.status(200).json(allLinks);
   } catch (err) {
     console.log(err);
     res.status(200).json(err);
   }
 });
+
 
 // router.get("/", async (req, res) => {
 //   try {
@@ -30,41 +31,43 @@ router.get("/", async (req, res) => {
 //   }
 // });
 
+
+
 //need to implement a bulk creation method
-
-router.post("/", async (req, res) => {
-  console.log(req.session.username);
-  console.log(`req body: ${req.body}`);
-  var body = req.body;
-  for (let x in req.body) {
-    console.log(x);
-    body[x].username = req.session.username;
-  }
-  console.log(JSON.stringify(body));
-
-
-  try {
-    const link = await Link.bulkCreate(body);
+// router.post("/", async (req, res) => {
+//   console.log(req.session.username);
+//   console.log(`req body: ${req.body}`);
+//   var body = req.body;
+//   for (let x in req.body) {
+//     console.log(x);
+//     body[x].username = req.session.username;
+//   }
+//   console.log(JSON.stringify(body));
 
 
-    res.status(200).json({ message: "link created" });
-  } catch (err) {
-    res.json(err).status(500);
-  }
-});
+//   try {
+//     const link = await Link.bulkCreate(body);
+
+//     res.status(200).json({ message: "link created" });
+//   } catch (err) {
+//     res.json(err).status(500);
+//   }
+// });
 
 
-router.post("/savelink", async (req, res) => {
-//   console.log(req.body.links);
+router.post("/createlink", async (req, res) => {
+  if (req.body.length == 0){
+    res.status(200).json({ message: "no new links to create!" });
+    return;
+  };
+
   const linkArray = req.body;
-  console.log(1, 'test')
   const linkUrl = linkArray.map((linkElement) => {
     let linkObj = {
       username: req.session.username,
       type: linkElement.type,
       url: linkElement.url,
     };
-    console.log(2, 'test')
     return linkObj;
   });
   try {
@@ -74,6 +77,27 @@ router.post("/savelink", async (req, res) => {
   } catch (err) {
     res.json(err).status(500);
   }
+});
+
+
+router.put("/updatelink", async (req, res) => {
+  if (req.body.length == 0){
+    res.status(200).json({ message: "no links to update!" });
+    return;
+  };
+  try {
+    for (let i=0; i < req.body.length; i++){
+      let currentLink = req.body[i];
+      let link = await Link.update({ url: currentLink.url }, {
+        where: {
+          type: currentLink.type
+        }
+      });
+    }
+  res.status(200).json({ message: "links updated" });
+} catch (err) {
+  res.json(err).status(500);
+}
 });
 
 module.exports = router;

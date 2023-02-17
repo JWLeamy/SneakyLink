@@ -68,18 +68,33 @@ router.get('/:username', async (req, res) => {
 
 
 router.get('/:username/update-profile', async (req, res) => {
-    try {
-        const userData = await User.findByPk(req.params.username);
-        const userLinks = await Link.findAll({ where: { username: req.params.username } });
-        const plainUserLinks = userLinks.map(el => el.dataValues)
-      if (req.params.username === req.session.username) {
-        res.render('updateProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: plainUserLinks});
-      };
-    } catch (err) {
-      console.log(err);
-      res.status(404);
-    }
+  try {
+      const userData = await User.findByPk(req.params.username);
+      const userLinks = await Link.findAll({ where: { username: req.params.username } });
+      const plainUserLinks = userLinks.map(el => el.dataValues)
+
+      function mapToObj(inputMap) {
+        let obj = {};
+    
+        inputMap.forEach(function(value, key){
+          key = value.type;
+          obj[key] = value
+        });
+
+        return obj;
+      }
+
+      const plainUserLinksObject = mapToObj(plainUserLinks);
+      
+    if (req.params.username === req.session.username) {
+      res.render('updateProfile', { layout: "main", userData: userData.get({ plain: true }), userLinks: plainUserLinksObject});
+    };
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+  }
 });
+
 
 
 module.exports = router;
