@@ -8,7 +8,7 @@ userPassForm.keydown(function () {
     }
 });
 
-// when the user presses sign up
+// When pressing sign up, the user's email, username, and password is registered to the Database
 $('#submit').click((event) => {
     event.preventDefault();
     console.log('submit clicked');
@@ -38,6 +38,7 @@ $('#submit').click((event) => {
     }
 });
 
+// Function for storing user info
 const storeNewUser = async (userInfo) => {
     console.log('register fetch');
     const response = await fetch('/api/users/register', {
