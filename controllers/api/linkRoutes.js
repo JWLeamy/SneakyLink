@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
 //   }
 // });
 
-
+//Creates link if user does not already have one
 router.post("/createlink", async (req, res) => {
   if (req.body.length == 0){
     res.status(200).json({ message: "no new links to create!" });
@@ -79,7 +79,7 @@ router.post("/createlink", async (req, res) => {
   }
 });
 
-
+//Updates exisiting links
 router.put("/updatelink", async (req, res) => {
   if (req.body.length == 0){
     res.status(200).json({ message: "no links to update!" });
@@ -100,6 +100,7 @@ router.put("/updatelink", async (req, res) => {
 }
 });
 
+//Deletes unwanted links
 router.delete('/deletelink', async (req, res) => {
   try {
     const deletelink = await Link.destroy({

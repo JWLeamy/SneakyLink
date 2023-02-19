@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../../models/User');
 
 
-// route for handling the login click (we will run a script at the bottom of the login page using a public JS helper, which on click of the login button will perform a post fetch that passes the users email and password in the body)
+// Route for handeling login
 router.post('/login', async (req, res) => {
     try {
         // Find the user who matches the requested username
@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
+// Route for handeling logout
 router.post('/logout', (req, res) => {
     console.log('logout route');
     if (req.session.logged_in) {
@@ -49,7 +49,7 @@ router.post('/logout', (req, res) => {
     }
 });
 
-
+// Route for handeling register
 router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;

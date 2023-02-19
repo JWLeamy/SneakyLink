@@ -1,5 +1,6 @@
 var pageInputs = 6;
 
+//When page is loaded, render existing links into input boxes
 const loadData = async () => {
     for (let i = 1; i <= pageInputs; i++) {
         let input = document.getElementById(`input${i}`);
@@ -29,6 +30,7 @@ loadData();
 var newLinkData = [];
 var updateLinkData = [];
 
+// On click (Save), Save new links and Update any existing links
 $('#save-data').click(async (event) => {
     for (let i=1; i <= pageInputs; i++) {
         let input = document.getElementById(`input${i}`);
@@ -65,7 +67,7 @@ $('#save-data').click(async (event) => {
     });
 })
 
-
+// On Click (Remove), Delete the selected link from the Database
 $('.removelink').click(async (e) => {
     let linktype = e.target.getAttribute('data-type')
     let linkvalue = e.target.getAttribute('value')

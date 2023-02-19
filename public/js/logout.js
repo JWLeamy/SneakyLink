@@ -14,4 +14,5 @@ const logout = async () => {
     }
 };
 
+// Clicking the logout button will sign the user out of their active session
 $('#logout').click(logout);

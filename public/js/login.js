@@ -15,8 +15,6 @@ $('#login').click(async (event) => {
         });
 
         if (response.ok) {
-            //this is the change
-            // document.location.replace(`/`);
             document.location.replace(`/${username}`);
         } else {
             $('#alert')
