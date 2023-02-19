@@ -100,4 +100,22 @@ router.put("/updatelink", async (req, res) => {
 }
 });
 
+router.delete('/deletelink', async (req, res) => {
+  try {
+    const deletelink = await Link.destroy({
+      where: {
+        url: req.body.url,
+        type: req.body.type,
+      },
+    });
+    if (!deletelink) {
+      res.status(404).json({ message: 'Unable to delete link!' });
+      return;
+    }
+    res.status(200).json(deletelink);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

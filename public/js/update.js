@@ -66,4 +66,21 @@ $('#save-data').click(async (event) => {
 })
 
 
+$('.removelink').click(async (e) => {
+    let linktype = e.target.getAttribute('data-type')
+    let linkvalue = e.target.getAttribute('value')
+    let linkobject = {
+        type: linktype,
+        url: linkvalue
+    }
 
+    const deleteData = await fetch('/api/links/deletelink', {
+        method: 'DELETE',
+        body: JSON.stringify(linkobject),
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (deleteData.ok) {
+        document.location.reload();
+    }
+})
